@@ -25,10 +25,11 @@
       ]
     state: present
 
-- name: Install apache php module for local stuff
+- name: (Disabled) Install apache php module for local stuff
   package:
     name: libapache2-mod-php
     state: present
+  when: false
 
 - name: Get NodeJS unsafe-perm setting
   shell: npm config get unsafe-perm

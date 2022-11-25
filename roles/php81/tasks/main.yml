@@ -5,6 +5,7 @@
     public: yes
   vars:
     php_version: "8.1"
+    php_enable_webserver: false
 
 - name: Install default PHP Packages
   package:
@@ -22,7 +23,6 @@
         "php{{ php_version }}-soap",
         "php{{ php_version }}-yaml",
         "php{{ php_version }}-curl",
-        "libapache2-mod-php{{ php_version }}",
       ]
     state: present
 
