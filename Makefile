@@ -19,7 +19,7 @@ export ANSIBLE_HOST_KEY_CHECKING
 .PHONY: setup docker
 setup: $(ANSBIN) ansible-collections base-packages
 
-development:
+development: setup
 	ansible-playbook -i localhost, development.yml
 
 update:
