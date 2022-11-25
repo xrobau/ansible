@@ -1,0 +1,9 @@
+- hosts: all
+  strategy: free
+  tasks:
+    - include_role:
+        name: php81
+      when: "'laravel' in group_names"
+      tags: always
+
+

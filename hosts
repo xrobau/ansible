@@ -3,4 +3,6 @@
 [all]
 localhost
 
+[laravel]
+103.184.174.72 fqdn=relay.oi.au larapub=/usr/local/relaymgr/public
 

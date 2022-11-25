@@ -37,7 +37,7 @@ me: setup
 $(ANSBIN): | base-packages
 	apt-get -y install ansible
 
-ansible-collections: ~/.ansible/collections/ansible_collections/community/general ~/.ansible/collections/ansible_collections/vyos/vyos ~/.ansible/collections/ansible_collections/vyos/vyos/MANIFEST.json ~/.ansible/collections/ansible_collections/ansible/posix/MANIFEST.json ~/.ansible/collections/ansible_collections/community/docker/MANIFEST.json ~/.ansible/collections/ansible_collections/community/mysql/MANIFEST.json ~/.ansible/roles/jhu-sheridan-libraries.postfix-smarthost/README.md ~/.ansible/roles/caddy_ansible.caddy_ansible/README.md
+ansible-collections: ~/.ansible/collections/ansible_collections/community/general ~/.ansible/collections/ansible_collections/vyos/vyos ~/.ansible/collections/ansible_collections/vyos/vyos/MANIFEST.json ~/.ansible/collections/ansible_collections/ansible/posix/MANIFEST.json ~/.ansible/collections/ansible_collections/community/docker/MANIFEST.json ~/.ansible/collections/ansible_collections/community/mysql/MANIFEST.json ~/.ansible/roles/jhu-sheridan-libraries.postfix-smarthost/README.md ~/.ansible/roles/caddy_ansible.caddy_ansible/README.md ~/.ansible/roles/geerlingguy.php/README.md ~/.ansible/roles/geerlingguy.php-versions
 
 ~/.ansible/collections/ansible_collections/ansible/posix/MANIFEST.json:
 	ansible-galaxy collection install ansible.posix
@@ -56,6 +56,12 @@ ansible-collections: ~/.ansible/collections/ansible_collections/community/genera
 
 ~/.ansible/roles/caddy_ansible.caddy_ansible/README.md:
 	ansible-galaxy install caddy_ansible.caddy_ansible
+
+~/.ansible/roles/geerlingguy.php/README.md:
+	ansible-galaxy install geerlingguy.php
+
+~/.ansible/roles/geerlingguy.php-versions:
+	ansible-galaxy install geerlingguy.php-versions
 
 ~/.ansible/collections/ansible_collections/community/general:
 	@ansible-galaxy collection install community.general

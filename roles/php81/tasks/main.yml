@@ -1,11 +1,21 @@
 ---
-- name: Install PHP
+- name: Set our php version to be 8.1
   include_role:
     name: geerlingguy.php-versions
     public: yes
   vars:
+     php_version: "8.1"
+
+- name: Install PHP 8.1 finally.
+  include_role:
+    name: geerlingguy.php
+    public: yes
+  vars:
     php_version: "8.1"
     php_enable_webserver: false
+    php_enable_php_fpm: true
+    php_fpm_state: started
+    php_fpm_enabled_on_boot: true
 
 - name: Install default PHP Packages
   package:

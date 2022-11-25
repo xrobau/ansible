@@ -27,6 +27,7 @@
       - gpg
       - dialog
       - qemu-guest-agent
+      - net-tools
     state: present
 
 - name: Update /etc/hosts if needed
