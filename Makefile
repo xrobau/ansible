@@ -17,7 +17,7 @@ ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_HOST_KEY_CHECKING
 
 .PHONY: setup docker
-setup: $(ANSBIN) ansible-collections
+setup: $(ANSBIN) ansible-collections base-packages
 
 development:
 	ansible-playbook -i localhost, development.yml
