@@ -1,0 +1,5 @@
+# Bootstrap an ubuntu development env
+---
+- hosts: all
+  roles:
+    - ubuntu-development

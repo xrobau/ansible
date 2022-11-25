@@ -1,0 +1,40 @@
+- name: Install GOLang
+  include_role:
+    name: gantsign.golang
+  vars:
+    golang_version: 1.19.1
+
+- name: Creating a symlink for go
+  ansible.builtin.file:
+    src: "/opt/go/{{ ansible_local.golang.general.version }}/bin/go"
+    dest: "/usr/bin/go"
+    state: link
+
+- name: Install NodeJS
+  include_role:
+    name: geerlingguy.nodejs
+  vars:
+    nodejs_version: "18.x"
+
+- name: Install PHP Development Packages
+  package:
+    name:
+      [
+        "php{{ php_version }}-swoole",
+        "php{{ php_version }}-xdebug",
+      ]
+    state: present
+
+- name: Install apache php module for local stuff
+  package:
+    name: libapache2-mod-php
+    state: present
+
+- name: Get NodeJS unsafe-perm setting
+  shell: npm config get unsafe-perm
+  register: unsafe_perm
+
+- name: Change NodeJS unsafe-perm setting to true
+  shell: npm config set unsafe-perm true
+  when: unsafe_perm.stdout == 'false'
+
