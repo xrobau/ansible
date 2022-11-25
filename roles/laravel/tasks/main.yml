@@ -8,8 +8,8 @@
     caddy_systemd_capabilities: "CAP_NET_BIND_SERVICE"
     caddy_config: |
         {{ fqdn }}
+        php_fastcgi 127.0.0.1:9000
         encode gzip
-        file_server browse {
-            root {{ larapub }}
-        }
+        root * {{ larapub }}
+        file_server
 

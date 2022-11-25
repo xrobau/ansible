@@ -2,7 +2,7 @@
   strategy: free
   tasks:
     - include_role:
-        name: php81
+        name: laravel
       when: "'laravel' in group_names"
       tags: always
 
