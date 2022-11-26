@@ -1,0 +1,60 @@
+---
+- name: Check for /netdata vol
+  stat:
+    path: /netdata
+  register: netdatastat
+  tags:
+    - netdata
+
+- fail:
+    msg: You need to create /netdata for netdata storage
+  when: not netdatastat.stat.exists
+  tags:
+    - netdata
+
+- name: Install netdata packages
+  package:
+    state: present
+    name:
+      - autoconf
+      - autoconf-archive
+      - autogen
+      - automake
+      - cmake
+      - libelf-dev
+      - libjson-c-dev
+      - libjudy-dev
+      - liblz4-dev
+      - libmnl-dev
+      - libssl-dev
+      - libtool
+      - libuv1-dev
+      - pkg-config
+      - uuid-dev
+  tags:
+    - netdata
+
+- name: Download netdata kickstart.sh if missing
+  uri:
+    url: https://my-netdata.io/kickstart.sh
+    dest: /netdata/kickstart.sh
+    creates: /netdata/kickstart.sh
+    mode: 0755
+  register: kickstart
+  tags:
+    - netdata
+
+- name: Check if /netdata/usr/sbin/netdata exists
+  stat:
+    path: /netdata/usr/sbin/netdata
+  register: ndstat
+  tags:
+    - netdata
+
+- name: Install netdata if needed
+  shell:
+    cmd: /netdata/kickstart.sh --install / --dont-wait
+  when: kickstart.changed or ndstat.stat.exists == false
+  tags:
+    - netdata
+
