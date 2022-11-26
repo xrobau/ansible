@@ -4,5 +4,5 @@
 localhost
 
 [laravel]
-103.184.174.72 fqdn=relay.oi.au larapub=/usr/local/relaymgr/public
+103.184.174.72 hostname=devrelay fqdn=relay.oi.au larapub=/usr/local/relaymgr/public
 

@@ -1,4 +1,9 @@
 ---
+- name: Check if the caddy file already exists (Will not overwrite if it exists)
+  stat:
+    path: /etc/caddy/Caddyfile
+  register: cfstat
+
 - name: Create caddy service for laravel project
   include_role:
     name: caddy_ansible.caddy_ansible
@@ -14,4 +19,5 @@
         encode gzip
         root * {{ larapub }}
         file_server
+  when: not cfstat.stat.exists
 
