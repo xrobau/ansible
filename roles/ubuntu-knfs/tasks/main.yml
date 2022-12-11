@@ -16,6 +16,7 @@
       - ipmitool
       - python3-pip
       - ipmitool
+      - sysfsutils
   tags:
     - zfs
     - kexec
@@ -74,3 +75,10 @@
     dest: /usr/sbin/policy-rc.d
     mode: 0755
 
+- name: Disable transparent hugepages for ZFS servers
+  copy:
+    dest: /etc/sysfs.conf
+    src: sysfs.conf
+  tags:
+    - sysfs
+  notify: restart-sysutils

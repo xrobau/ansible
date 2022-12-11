@@ -2,3 +2,8 @@
 - name: systemctl-reload
   command: systemctl daemon-reload
 
+- name: restart-sysutils
+  service:
+    name: sysfsutils
+    state: restarted
+
