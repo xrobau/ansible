@@ -24,13 +24,15 @@ network:
   bonds:
     bond0:
       dhcp4: no
-      optional: true
       accept-ra: false
+      mtu: 9100
       interfaces:
         - eth4
         - eth5
       parameters:
         mode: active-backup
+        mii-monitor-interval: 1
+        gratuitious-arp: 5
 
   bridges:
     brtrunk:
