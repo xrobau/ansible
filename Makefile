@@ -102,9 +102,9 @@ zfsstatus:
 			grep -H . $$x; \
 		done
 
-.PHONY: ansible
-ansible /etc/hosts: /etc/ansible.hostname
-	$(ANSBIN) localhost.yml -e hostname=$(shell cat /etc/ansible.hostname)
+.PHONY: zfsconf
+zfsconf /etc/hosts: /etc/ansible.hostname
+	$(ANSBIN) zfsserver.yml -e hostname=$(shell cat /etc/ansible.hostname)
 
 .PHONY: hostname
 hostname /etc/ansible.hostname:
