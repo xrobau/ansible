@@ -21,9 +21,20 @@ network:
       accept-ra: false
       optional: true
 
+  bonds:
+    bond0:
+      dhcp4: no
+      optional: true
+      accept-ra: false
+      interfaces:
+        - eth4
+        - eth5
+      parameters:
+        mode: active-backup
+
   bridges:
     brtrunk:
-      interfaces: [ eth4 ]
+      interfaces: [ bond0 ]
       mtu: 9100
       optional: true
       accept-ra: false
