@@ -1,0 +1,49 @@
+# Example of a netplan config for a file server.
+
+network:
+  ethernets:
+    eth0:
+      accept-ra: false
+      optional: true
+    eth1:
+      accept-ra: false
+      optional: true
+    eth2:
+      accept-ra: false
+      optional: true
+    eth3:
+      accept-ra: false
+      optional: true
+    eth4:
+      accept-ra: false
+      optional: true
+    eth5:
+      accept-ra: false
+      optional: true
+
+  bridges:
+    brtrunk:
+      interfaces: [ eth4 ]
+      mtu: 9100
+      optional: true
+      accept-ra: false
+      parameters:
+        stp: false
+
+  vlans:
+    vlan10:
+      id: 10
+      mtu: 1500
+      link: brtrunk
+      optional: true
+      dhcp4: true
+    vlan404:
+      id: 404
+      mtu: 9000
+      link: brtrunk
+      optional: true
+      dhcp4: true
+
+
+
+

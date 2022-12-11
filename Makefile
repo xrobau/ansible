@@ -11,7 +11,7 @@ halp: setup
 	@echo -e \\t -- Updates this machine, purges old pkgs hanging around
 	@echo -e \ \ \ make me
 	@echo -e \\t -- Runs fast.yml against the IPs of this host
-	@echo ZFS Things:
+	@echo "ZFS Things: (Please read the ZFS.md documentation)"
 	@echo -e "   make zfs"
 	@echo -e "\t -- Installs the base packages for ZFS, and enables kexec"
 	@echo -e "   make zfsconf"
@@ -103,7 +103,7 @@ zfsstatus:
 		done
 
 .PHONY: zfsconf
-zfsconf /etc/hosts: /etc/ansible.hostname
+zfsconf /etc/hosts: /etc/ansible.hostname /etc/netplan/10-zfs-server.yaml.example
 	$(ANSBIN) zfsserver.yml -e hostname=$(shell cat /etc/ansible.hostname)
 
 .PHONY: hostname
@@ -116,6 +116,21 @@ hostname /etc/ansible.hostname:
 				hostname > /etc/ansible.hostname; \
 			fi; \
 		fi
+
+# If this doesn't exist, someone's running 'make zfsconf' for the first time.
+# We don't want to break a working config, so if the 00-installer-config.yaml
+# file exists, rename it to 10-orig-config.yaml and create an empty default
+# netplan one, so ansible doesn't put a potentially broken one in place
+/etc/netplan/10-zfs-server.yaml.example:
+	@cp 10-zfs-server.yaml.example $@
+	@echo "NOTICE: An example netplan config has been put at $@"
+	@if [ -e "/etc/netplan/00-installer-config.yaml" ]; then \
+		echo "WARNING: /etc/netplan/00-installer-config.yaml has been renamed"; \
+		echo "  to /etc/netplan/10-orig-config.yaml to ensure it is not accidentally"; \
+		echo "  deleted by any ansible roles"; \
+		mv /etc/netplan/00-installer-config.yaml /etc/netplan/10-orig-config.yaml; \
+		touch /etc/netplan/50-cip-netplan-config.yaml; \
+	fi
 
 /etc/modprobe.d/zfs.arcmax.conf:
 	@echo "If this machine is only going to be used as a fileserver then"
