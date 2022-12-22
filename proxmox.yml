@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   roles:
-    - proxmox-base
+    #- proxmox-base
+    - kexec
 
 
