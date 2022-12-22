@@ -23,8 +23,14 @@
     - kexec
   notify: systemctl-reload
 
+- name: Set bootpath for proxmox
+  set_fact:
+    bootpath: /boot/pve
+  tags:
+    - kexec
+
 - name: Create kexec-load service
-  copy:
+  template:
     dest: /etc/systemd/system/kexec-load.service
     src:  kexec-load.service
     mode: 0644
