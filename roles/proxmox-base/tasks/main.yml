@@ -197,9 +197,12 @@
     regexp: 'ForwardAgent '
     line: "    ForwardAgent yes"
 
-- name: Do not acceptenv anything in sshd (Avoid Locale/LC_ALL issues)
+- name: VNC Proxy needs all the LC_ variables forwarded
   lineinfile:
     path: /etc/ssh/sshd_config
-    state: absent
+    state: present
     regexp: '^AcceptEnv'
+    line: "AcceptEnv LANG LC_*"
+  notify:
+    - restart-sshd
 
