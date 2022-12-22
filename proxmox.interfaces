@@ -14,48 +14,45 @@ source /etc/network/interfaces.d/*
 auto lo
 iface lo inet loopback
 
+auto eth0
 iface eth0 inet manual
 	mtu 9000
 
+auto eth1
 iface eth1 inet manual
 	mtu 9000
 
-iface eth2 inet manual
-	mtu 9000
 
-auto eth3
-iface eth3 inet manual
-	mtu 9000
 
-auto eth4
-iface eth4 inet manual
-	mtu 9000
-
-auto eth5
-iface eth5 inet manual
-	mtu 9000
-
-auto vlan404
-iface vlan404 inet static
-	address 10.40.3.10/24
-	gateway 10.40.3.1
+auto vlan500
+iface vlan500 inet static
+        address 103.184.174.12/26
+        gateway 103.184.174.1
 	ovs_type OVSIntPort
 	ovs_bridge vmbr0
 	ovs_mtu 1500
-	ovs_options tag=404
+	ovs_options tag=500
+
+auto vlan555
+iface vlan555 inet static
+        address 10.8.61.102/24
+	ovs_type OVSIntPort
+	ovs_bridge vmbr0
+	ovs_mtu 9000
+	ovs_options tag=555
 
 auto bond0
 iface bond0 inet manual
-	ovs_bonds eth4 eth5
+	ovs_bonds eth0 eth1
 	ovs_type OVSBond
 	ovs_bridge vmbr0
 	ovs_mtu 9000
-	ovs_options vlan_mode=native-untagged bond_mode=balance-slb
+	ovs_options bond_mode=balance-tcp lacp=active
 
 auto vmbr0
 iface vmbr0 inet manual
 	ovs_type OVSBridge
-	ovs_ports bond0 vlan404
+	ovs_ports bond0
 	ovs_mtu 9000
 
 source /etc/network/interfaces.d/*.cfg
