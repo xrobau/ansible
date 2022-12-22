@@ -18,6 +18,8 @@ halp: setup
 	@echo -e "\t -- Runs the ansible playbook to set MOTD correctly, etc"
 	@echo -e "   make zfsstatus"
 	@echo -e "\t -- Shows you current zfs kernel module settings"
+	@echo "Proxmox Server:"
+	@echo -e "   make proxmox"
 
 ANSBIN=/usr/bin/ansible-playbook
 ANSIBLE_HOST_KEY_CHECKING=False
@@ -40,6 +42,11 @@ me: setup
 	@MYIPS=$$(ip -o addr | egrep -v '(\ lo|\ docker)' | awk '/inet / { print $$4 }' | cut -d/ -f1 | paste -sd ','); \
 		echo ansible-playbook fast.yml -l $$MYIPS; \
 		ansible-playbook fast.yml -l $$MYIPS
+
+.PHONY: proxmox
+proxmox: | setup
+	$(ANSBIN) -i localhost, proxmox.yml
+	echo Yeeep $(ANSBIN)
 
 $(ANSBIN): | base-packages
 	apt-get -y install ansible
